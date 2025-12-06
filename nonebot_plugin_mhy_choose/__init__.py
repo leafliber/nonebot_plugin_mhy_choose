@@ -92,15 +92,15 @@ async def handle_mhy_choose(bot: Bot, event: Union[GroupMessageEvent, PrivateMes
         image_path = get_random_image()
         
         if image_path is None:
-            await mhy_choose.finish("未找到任何图片，请检查配置的图片文件夹")
+            await mhy_choose.send("未找到任何图片，请检查配置的图片文件夹")
             return
         
         # 发送图片
         logger.info(f"发送图片: {image_path}")
         # 使用 file:/// 协议发送本地图片
         image_msg = MessageSegment.image(f"file:///{image_path.absolute()}")
-        await mhy_choose.finish(image_msg)
+        await mhy_choose.send(image_msg)
         
     except Exception as e:
         logger.error(f"发送图片时出错: {e}")
-        await mhy_choose.finish(f"发送图片时出错: {str(e)}")
+        await mhy_choose.send(f"发送图片时出错: {str(e)}")
