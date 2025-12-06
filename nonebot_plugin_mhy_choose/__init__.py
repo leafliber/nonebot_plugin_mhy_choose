@@ -81,7 +81,7 @@ def get_random_image() -> Optional[Path]:
 
 
 # 创建命令处理器
-mhy_choose = on_command("今天玩什么", priority=5, block=True)
+mhy_choose = on_command("今天玩什么", aliases={"玩什么"}, priority=5, block=True)
 
 
 @mhy_choose.handle()
