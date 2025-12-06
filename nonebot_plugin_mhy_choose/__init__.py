@@ -29,7 +29,7 @@ class Config(BaseModel):
 
 # 获取配置
 driver = get_driver()
-plugin_config = Config.parse_obj(driver.config.dict())
+plugin_config = Config(**driver.config.dict())
 
 # 支持的图片格式
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'}
@@ -97,7 +97,8 @@ async def handle_mhy_choose(bot: Bot, event: Union[GroupMessageEvent, PrivateMes
         
         # 发送图片
         logger.info(f"发送图片: {image_path}")
-        image_msg = MessageSegment.image(image_path.as_uri())
+        # 使用 file:/// 协议发送本地图片
+        image_msg = MessageSegment.image(f"file:///{image_path.absolute()}")
         await mhy_choose.finish(image_msg)
         
     except Exception as e:
