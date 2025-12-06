@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 __plugin_meta__ = PluginMetadata(
     name="MHY Choose",
     description="从指定文件夹随机发送图片（包括GIF）",
-    usage="发送 '抽卡' 或 '来一张' 来获取随机图片",
+    usage="发送 '今天玩什么' 来获取随机图片",
     type="application",
     homepage="https://github.com/leafliber/nonebot_plugin_mhy_choose",
     supported_adapters={"~onebot.v11"},
@@ -81,7 +81,7 @@ def get_random_image() -> Optional[Path]:
 
 
 # 创建命令处理器
-mhy_choose = on_command("抽卡", aliases={"来一张", "随机图片"}, priority=5, block=True)
+mhy_choose = on_command("今天玩什么", priority=5, block=True)
 
 
 @mhy_choose.handle()
