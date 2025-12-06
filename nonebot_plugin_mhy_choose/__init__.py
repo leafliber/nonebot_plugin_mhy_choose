@@ -3,13 +3,11 @@ NoneBot Plugin MHY Choose
 一个用于从指定文件夹随机发送图片（包括GIF）的NoneBot插件
 """
 from pathlib import Path
-from typing import List
+from typing import List, Optional, Union
 import random
-import os
 
 from nonebot import on_command, get_driver
 from nonebot.adapters.onebot.v11 import Bot, MessageSegment, GroupMessageEvent, PrivateMessageEvent
-from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from nonebot.log import logger
 from pydantic import BaseModel, Field
@@ -66,7 +64,7 @@ def get_image_files(folder_path: str) -> List[Path]:
     return image_files
 
 
-def get_random_image() -> Path | None:
+def get_random_image() -> Optional[Path]:
     """
     从配置的文件夹中随机获取一张图片
     
@@ -87,7 +85,7 @@ mhy_choose = on_command("抽卡", aliases={"来一张", "随机图片"}, priorit
 
 
 @mhy_choose.handle()
-async def handle_mhy_choose(bot: Bot, event: GroupMessageEvent | PrivateMessageEvent):
+async def handle_mhy_choose(bot: Bot, event: Union[GroupMessageEvent, PrivateMessageEvent]):
     """处理抽卡命令"""
     try:
         # 获取随机图片
